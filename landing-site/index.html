@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>دانش‌یار | دانلود اپلیکیشن</title>
+    <meta name="description" content="دانلود اپلیکیشن دانش‌یار برای اندروید و iOS - دستیار هوشمند آموزشی">
+    <meta name="theme-color" content="#0f1115">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="دانش‌یار">
+    
+    <!-- Font -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f1115;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* بک‌گراند متحرک */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(235, 124, 42, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(235, 124, 42, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(235, 124, 42, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* هدر */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(15, 17, 21, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+        
+        .logo span {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* هیرو */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(235, 124, 42, 0.1);
+            border: 1px solid rgba(235, 124, 42, 0.2);
+            border-radius: 100px;
+            font-size: 14px;
+            color: #eb7c2a;
+            margin-bottom: 24px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(32px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 .grad {
+            background: linear-gradient(135deg, #eb7c2a 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        /* لوگوی بزرگ */
+        .hero-logo {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 40px;
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px rgba(235, 124, 42, 0.3),
+                0 0 0 1px rgba(235, 124, 42, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            75% { transform: translateY(5px) rotate(-1deg); }
+        }
+        
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* دکمه‌های دانلود */
+        .download-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-android {
+            background: linear-gradient(135deg, #eb7c2a 0%, #f59e0b 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(235, 124, 42, 0.3);
+        }
+        
+        .btn-android:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(235, 124, 42, 0.4);
+        }
+        
+        .btn-ios {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-ios:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .btn-web {
+            background: rgba(235, 124, 42, 0.1);
+            color: #eb7c2a;
+            border: 1px solid rgba(235, 124, 42, 0.3);
+        }
+        
+        .btn-web:hover {
+            background: rgba(235, 124, 42, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* ویژگی‌ها */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            padding: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(235, 124, 42, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.8;
+        }
+        
+        /* آموزش نصب iOS */
+        .ios-guide {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 48px;
+            margin: 60px 0;
+        }
+        
+        .ios-guide h2 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .ios-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+        
+        .ios-step {
+            text-align: center;
+        }
+        
+        .ios-step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #eb7c2a 0%, #f59e0b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+        }
+        
+        .ios-step h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .ios-step p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        /* فوتر */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        footer p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* انیمیشن */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+        .delay-5 { animation-delay: 0.5s; opacity: 0; }
+        
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+                border-radius: 28px;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+            }
+            
+            .ios-guide {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <!-- هدر -->
+    <header>
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <img src="/icon-192.png" alt="دانش‌یار">
+                <span>دانش‌یار</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- هیرو -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-logo animate delay-1">
+                <img src="/icon-512.png" alt="دانش‌یار">
+            </div>
+            
+            <div class="hero-badge animate delay-1">
+                ⭐ بیش از ۷۰ کتاب درسی
+            </div>
+            
+            <h1 class="animate delay-2">
+                هر سوال درسی،<br>
+                <span class="grad">یک توضیح روشن</span>
+            </h1>
+            
+            <p class="animate delay-2">
+                دانش‌یار پیشرفته‌ترین دستیار هوش مصنوعی آموزشی برای دانش‌آموزان پایه هفتم تا دوازدهم
+            </p>
+            
+            <div class="download-buttons animate delay-3">
+                <!-- دکمه اندروید -->
+                <a href="/download/daneshyar.apk" class="btn btn-android" id="btnAndroid">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.523 2.237l1.594 2.76a.5.5 0 01-.166.682l-1.642.948a7.05 7.05 0 00-3.558-1.087 7.05 7.05 0 00-3.56 1.087l-1.64-.948a.5.5 0 01-.167-.682l1.594-2.76a.5.5 0 01.683-.167L12 3.1l1.84-1.063a.5.5 0 01.683.167v-.001zM5.5 9.5a2 2 0 110 4 2 2 0 010-4zm13 0a2 2 0 110 4 2 2 0 010-4zM12 14c-3.314 0-6 1.79-6 4v1a1 1 0 001 1h10a1 1 0 001-1v-1c0-2.21-2.686-4-6-4z"/>
+                    </svg>
+                    دانلود اندروید
+                </a>
+                
+                <!-- دکمه iOS -->
+                <a href="#ios-guide" class="btn btn-ios" id="btnIOS">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    نصب iOS
+                </a>
+                
+                <!-- دکمه وب اپ -->
+                <a href="https://daneshyar.ir" class="btn btn-web">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    ورود به وبسایت
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ویژگی‌ها -->
+    <section class="container">
+        <div class="features">
+            <div class="feature-card animate delay-3">
+                <div class="feature-icon">📸</div>
+                <h3>عکس بفرست، حل تشریحی بگیر</h3>
+                <p>از تمرین، جزوه یا صفحه کتاب عکس بفرست؛ دانش‌یار سوال را می‌خواند و راه‌حل قابل فهم می‌دهد.</p>
+            </div>
+            
+            <div class="feature-card animate delay-4">
+                <div class="feature-icon">📚</div>
+                <h3>بیش از ۷۰ کتاب درسی</h3>
+                <p>از پایه هفتم تا دوازدهم، کتاب‌ها دسته‌بندی شده‌اند تا سریع‌تر به منبع درست برسی.</p>
+            </div>
+            
+            <div class="feature-card animate delay-5">
+                <div class="feature-icon">🧠</div>
+                <h3>پاسخ آموزشی و مرحله‌ای</h3>
+                <p>فقط جواب نهایی نمی‌گیری؛ دلیل، فرمول و نکته اصلی را هم می‌فهمی.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- آموزش نصب iOS -->
+    <section class="container" id="ios-guide">
+        <div class="ios-guide">
+            <h2>📱 نصب روی آیفون</h2>
+            
+            <div class="ios-steps">
+                <div class="ios-step">
+                    <div class="ios-step-number">۱</div>
+                    <h3>باز کردن در Safari</h3>
+                    <p>این صفحه را با مرورگر Safari آیفون خود باز کنید</p>
+                </div>
+                
+                <div class="ios-step">
+                    <div class="ios-step-number">۲</div>
+                    <h3>اشتراک‌گذاری</h3>
+                    <p>روی آیکون اشتراک‌گذاری در پایین صفحه بزنید</p>
+                </div>
+                
+                <div class="ios-step">
+                    <div class="ios-step-number">۳</div>
+                    <h3>Add to Home Screen</h3>
+                    <p>به پایین اسکرول کنید و «Add to Home Screen» را انتخاب کنید</p>
+                </div>
+                
+                <div class="ios-step">
+                    <div class="ios-step-number">۴</div>
+                    <h3>تمام!</h3>
+                    <p>دانش‌یار روی صفحه اصلی شما نصب شد!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <p>© ۱۴۰۴ دانش‌یار · ساخته شده توسط امید عباسپور</p>
+        </div>
+    </footer>
+    
+    <script>
+        // تشخیص دستگاه
+        const ua = navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        const isAndroid = /Android/.test(ua);
+        const isStandalone = window.navigator.standalone === true;
+        
+        // اگر قبلاً نصب شده، مستقیم ببر
+        if (isStandalone) {
+            window.location.href = 'https://daneshyar.ir';
+        }
+        
+        // تغییر متن دکمه بر اساس دستگاه
+        if (isIOS) {
+            document.getElementById('btnAndroid').style.display = 'none';
+            document.getElementById('btnIOS').classList.add('btn-android');
+            document.getElementById('btnIOS').classList.remove('btn-ios');
+        } else if (isAndroid) {
+            document.getElementById('btnIOS').style.display = 'none';
+        }
+        
+        // اسکرول نرم
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // ثبت Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW error:', err));
+        }
+    </script>
+</body>
+</html>
