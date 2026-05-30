@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0f1115">
+
+    <!-- WebView -->
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- صفحه خطای سفارشی -->
+    <RelativeLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0f1115"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- آیکون خطا -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_error"
+                android:contentDescription="خطا"
+                android:alpha="0.8" />
+
+            <!-- عنوان خطا -->
+            <TextView
+                android:id="@+id/error_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="اتصال برقرار نشد"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- پیام خطا -->
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید."
+                android:textColor="#AAAAAA"
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- دکمه تلاش مجدد -->
+            <Button
+                android:id="@+id/btn_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/btn_retry_bg"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:text="تلاش مجدد"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- راهنمای عیب‌یابی -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="• اتصال وای‌فای یا دیتا را چک کنید\n• از روشن بودن VPN مطمئن شوید\n• بعد از چند لحظه دوباره تلاش کنید"
+                android:textColor="#666666"
+                android:textSize="13sp"
+                android:lineSpacingExtra="6dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

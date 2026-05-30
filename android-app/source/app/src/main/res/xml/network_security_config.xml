@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- تنظیمات امنیت شبکه - HTTPS -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    
+    <!-- اجازه HTTP فقط برای دامنه اصلی (اگر SSL نداشتید) -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">daneshyar.ir</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

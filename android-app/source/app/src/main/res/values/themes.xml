@@ -1,0 +1,17 @@
+<resources>
+    <!-- تم اصلی -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/dark</item>
+        <item name="android:navigationBarColor">@color/dark</item>
+        <item name="android:windowBackground">@color/dark</item>
+    </style>
+
+    <!-- تم اسپلش اسکرین -->
+    <style name="SplashTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/dark</item>
+        <item name="android:navigationBarColor">@color/dark</item>
+        <item name="android:windowBackground">@color/dark</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>
