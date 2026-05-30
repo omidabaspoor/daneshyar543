@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پیش‌نمایش موبایل دانش‌یار</title>
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body {
+  font-family: 'Vazirmatn','Tahoma',sans-serif; direction:rtl;
+  background: #1a1a25;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+h1 { text-align:center; color:#eb7c2a; margin-bottom: 30px; font-size: 22px; }
+.mockups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.phone {
+  width: 380px;
+  height: 760px;
+  background: #000;
+  border-radius: 40px;
+  padding: 12px;
+  margin: 0 auto;
+  box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 8px #222;
+  position: relative;
+}
+.phone::before {
+  content: "";
+  position: absolute;
+  top: 22px; left: 50%;
+  transform: translateX(-50%);
+  width: 100px; height: 22px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 10;
+}
+.phone iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 32px;
+  background: #07070d;
+}
+.phone-label {
+  text-align: center;
+  margin-top: 16px;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+<h1>📱 پیش‌نمایش موبایلی دانش‌یار</h1>
+<div class="mockups">
+  <div>
+    <div class="phone">
+      <iframe src="preview.html" title="صفحه اصلی"></iframe>
+    </div>
+    <div class="phone-label">🏠 صفحه اصلی</div>
+  </div>
+</div>
+</body>
+</html>

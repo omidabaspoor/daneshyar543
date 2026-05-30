@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پیش‌نمایش کارت بانکی</title>
+<style>
+:root {
+  --orange: #eb7c2a;
+  --bg: #0a0a10;
+  --panel: #11111a;
+  --text: #f5f5f7;
+  --text-dim: #a0a0aa;
+}
+body {
+  margin: 0;
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.demo {
+  background: var(--panel);
+  border-radius: 22px;
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+h2 {
+  color: var(--orange);
+  margin: 0 0 16px;
+  font-size: 18px;
+  text-align: center;
+}
+.sizes-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin: 20px 0 10px;
+  border-top: 1px dashed rgba(255,255,255,.08);
+  padding-top: 16px;
+}
+
+/* ============ کارت بانکی - طراحی جدید ============ */
+.bank-card-3d {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 35%, #0f3460 75%, #162447 100%);
+  border-radius: 18px;
+  padding: 20px;
+  margin: 0 0 14px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, .45),
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    inset 0 0 0 1px rgba(255, 255, 255, .04);
+  aspect-ratio: 1.586 / 1;
+  max-width: 420px;
+  width: 100%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  user-select: none;
+}
+.bc-glow {
+  position: absolute; top: -80px; right: -80px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 124, 42, .4), transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.bc-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: bcShimmer 6s ease-in-out infinite;
+  pointer-events: none; z-index: 0;
+}
+@keyframes bcShimmer {
+  0%, 100% { background-position: 200% 0; }
+  50%      { background-position: -100% 0; }
+}
+.bc-top {
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.bc-bank {
+  font-size: 13px; font-weight: 800; color: rgba(255, 255, 255, .92);
+  letter-spacing: .5px;
+}
+.bc-chip {
+  width: 42px; height: 32px; border-radius: 6px;
+  background: linear-gradient(135deg, #e0b850 0%, #c49527 50%, #b3851a 100%);
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  padding: 5px 7px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 1px 3px rgba(0, 0, 0, .3);
+}
+.bc-chip-line { height: 1.5px; background: rgba(0, 0, 0, .35); border-radius: 1px; }
+
+.bc-number-row { position: relative; z-index: 1; margin: 0; padding: 8px 0; }
+.bc-number {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 4px; direction: ltr; text-align: center;
+}
+.bc-num-group {
+  flex: 1;
+  color: #fff;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-weight: 800;
+  font-size: clamp(16px, 5.2vw, 22px);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+  white-space: nowrap;
+}
+
+.bc-bottom {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  position: relative; z-index: 1; gap: 12px;
+}
+.bc-label {
+  font-size: 10px; color: rgba(255, 255, 255, .55);
+  letter-spacing: .5px; margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.bc-name {
+  font-size: 15px; font-weight: 800; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.bc-copy-big {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; max-width: 420px;
+  margin: 12px auto 0;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, var(--orange) 0%, #d96a1e 100%);
+  border: none; color: #fff;
+  border-radius: 12px;
+  font-size: 14px; font-weight: 800; font-family: inherit;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 14px rgba(235, 124, 42, .35);
+  position: relative; overflow: hidden;
+}
+.bc-copy-big:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(235, 124, 42, .45); }
+.bc-copy-big:active { transform: translateY(0); }
+.bc-copy-big svg { width: 17px; height: 17px; flex-shrink: 0; }
+.bc-copy-big .bc-copy-done { display: none; }
+.bc-copy-big.copied { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 14px rgba(22, 163, 74, .35); }
+.bc-copy-big.copied .bc-copy-text, .bc-copy-big.copied svg { display: none; }
+.bc-copy-big.copied .bc-copy-done { display: inline; }
+
+@media (max-width: 480px) {
+  .bank-card-3d { padding: 18px; border-radius: 16px; }
+  .bc-bank { font-size: 12px; }
+  .bc-chip { width: 36px; height: 28px; }
+  .bc-num-group { letter-spacing: 1.5px; }
+  .bc-name { font-size: 14px; }
+}
+@media (max-width: 360px) {
+  .bank-card-3d { padding: 14px; aspect-ratio: 1.55 / 1; }
+  .bc-num-group { letter-spacing: 1px; }
+}
+
+/* جعبه دمو سایز کوچک */
+.shrink-wrap { max-width: 320px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <h2>کارت بانکی - عرض کامل</h2>
+  <div class="bank-card-3d" id="bankCard">
+    <div class="bc-glow"></div>
+    <div class="bc-shimmer"></div>
+    <div class="bc-top">
+      <div class="bc-bank">بانک ملی</div>
+      <div class="bc-chip">
+        <div class="bc-chip-line"></div>
+        <div class="bc-chip-line"></div>
+      </div>
+    </div>
+    <div class="bc-number-row">
+      <div class="bc-number" dir="ltr">
+        <span class="bc-num-group">6037</span>
+        <span class="bc-num-group">9982</span>
+        <span class="bc-num-group">5668</span>
+        <span class="bc-num-group">6014</span>
+      </div>
+    </div>
+    <div class="bc-bottom">
+      <div class="bc-holder">
+        <div class="bc-label">صاحب کارت</div>
+        <div class="bc-name">امید عباسپور</div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="bc-copy-big" id="copyBtn" onclick="copyDemo(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+    <span class="bc-copy-text">کپی شماره کارت</span>
+    <span class="bc-copy-done">✓ کپی شد!</span>
+  </button>
+
+  <div class="sizes-label">— نمایش در عرض ۳۲۰ پیکسل (موبایل کوچک) —</div>
+  <div class="shrink-wrap">
+    <div class="bank-card-3d">
+      <div class="bc-glow"></div>
+      <div class="bc-shimmer"></div>
+      <div class="bc-top">
+        <div class="bc-bank">بانک ملی</div>
+        <div class="bc-chip">
+          <div class="bc-chip-line"></div>
+          <div class="bc-chip-line"></div>
+        </div>
+      </div>
+      <div class="bc-number-row">
+        <div class="bc-number" dir="ltr">
+          <span class="bc-num-group">6037</span>
+          <span class="bc-num-group">9982</span>
+          <span class="bc-num-group">5668</span>
+          <span class="bc-num-group">6014</span>
+        </div>
+      </div>
+      <div class="bc-bottom">
+        <div class="bc-holder">
+          <div class="bc-label">صاحب کارت</div>
+          <div class="bc-name">امید عباسپور</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function copyDemo(btn) {
+  btn.classList.add('copied');
+  setTimeout(function(){ btn.classList.remove('copied'); }, 2000);
+}
+</script>
+</body>
+</html>

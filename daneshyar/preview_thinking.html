@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تست انیمیشن فکر کردن</title>
+<style>
+:root {
+  --orange:#eb7c2a; --orange-2:#ff9a3d; --orange-3:#ffb86b;
+  --bg-0:#07070d; --text:#f4f4f7; --text-dim:#9ea0b3; --text-muted:#6b6d80;
+  --border:rgba(255,255,255,.08);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg-0); color:var(--text); font-family:Tahoma,sans-serif; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:30px; }
+
+/* ---- کپی از chat.css ---- */
+.message { display:flex; gap:10px; align-items:flex-start; }
+.avatar { width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;background:rgba(235,124,42,.2);display:grid;place-items:center; }
+.avatar img { width:100%;height:100%;object-fit:cover; }
+.message-wrap { flex:1; }
+
+/* bubble:has fix */
+.message .bubble:has(.thinking-bubble) { padding:0; background:transparent; border:none; box-shadow:none; }
+
+/* thinking */
+.thinking-bubble {
+  padding:16px 18px; border-radius:18px;
+  background:linear-gradient(135deg,rgba(235,124,42,.08),rgba(235,124,42,.03));
+  border:1px solid rgba(235,124,42,.2);
+  box-shadow:0 4px 20px rgba(235,124,42,.1);
+  display:flex; flex-direction:column; gap:14px;
+  min-width:220px; max-width:340px;
+  position:relative; overflow:hidden;
+}
+.thinking-bubble::before {
+  content:""; position:absolute; top:0;right:0;left:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  animation:thinkingBar 2s ease-in-out infinite;
+}
+@keyframes thinkingBar {
+  0%{transform:translateX(100%);opacity:0} 30%{opacity:1} 70%{opacity:1} 100%{transform:translateX(-100%);opacity:0}
+}
+.thinking-header { display:flex; align-items:center; gap:10px; }
+.thinking-brain {
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(235,124,42,.2),rgba(235,124,42,.05));
+  border:1.5px solid rgba(235,124,42,.4);
+  display:grid;place-items:center;flex-shrink:0;
+  animation:brainPulse 2s ease-in-out infinite;
+}
+@keyframes brainPulse {
+  0%,100%{box-shadow:0 0 0 0 rgba(235,124,42,.4)} 50%{box-shadow:0 0 0 8px rgba(235,124,42,0)}
+}
+.thinking-brain svg { width:16px;height:16px;color:var(--orange); }
+.thinking-dots { display:flex;align-items:center;gap:4px; margin-right:auto; }
+.thinking-dots span {
+  width:6px;height:6px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 8px rgba(235,124,42,.6);
+  animation:dotBounce 1.2s ease-in-out infinite;
+}
+.thinking-dots span:nth-child(2){animation-delay:.2s;background:var(--orange-2)}
+.thinking-dots span:nth-child(3){animation-delay:.4s;background:var(--orange-3)}
+@keyframes dotBounce {
+  0%,60%,100%{transform:translateY(0);opacity:.6} 30%{transform:translateY(-6px);opacity:1}
+}
+.thinking-status { display:flex;flex-direction:column;gap:2px;flex:1; }
+.thinking-status-title { font-size:13px;font-weight:700;color:var(--text); }
+.thinking-status-sub { font-size:11px;color:var(--text-dim); }
+.thinking-steps { display:flex;flex-direction:column;gap:6px; }
+.t-step { display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);transition:color .35s; }
+.t-step-dot { width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);flex-shrink:0;transition:all .35s;position:relative;background:transparent; }
+.t-step.active { color:var(--orange); }
+.t-step.active .t-step-dot { background:var(--orange);border-color:var(--orange);box-shadow:0 0 10px rgba(235,124,42,.7);animation:stepPulse .8s ease-in-out infinite; }
+@keyframes stepPulse { 0%,100%{box-shadow:0 0 6px rgba(235,124,42,.5);transform:scale(1)} 50%{box-shadow:0 0 14px rgba(235,124,42,.9);transform:scale(1.3)} }
+.t-step.done { color:#38d9a9; }
+.t-step.done .t-step-dot { background:#38d9a9;border-color:#38d9a9;box-shadow:0 0 8px rgba(56,217,169,.5);animation:none; }
+.t-step.done .t-step-dot::after { content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-52%) rotate(45deg);width:3px;height:5px;border-right:1.5px solid #0a1f1a;border-bottom:1.5px solid #0a1f1a; }
+.t-step+.t-step { position:relative; }
+.t-step+.t-step::before { content:"";position:absolute;right:3.25px;top:-6px;width:1.5px;height:6px;background:rgba(255,255,255,.08); }
+.t-step.done+.t-step::before,.t-step.active+.t-step::before { background:rgba(235,124,42,.2); }
+</style>
+</head>
+<body>
+<div class="message assistant">
+  <div class="avatar">
+    <svg viewBox="0 0 36 36" fill="none" style="width:36px;height:36px"><circle cx="18" cy="18" r="18" fill="rgba(235,124,42,.3)"/><text x="18" y="23" text-anchor="middle" fill="#eb7c2a" font-size="16">د</text></svg>
+  </div>
+  <div class="message-wrap">
+    <div class="thinking-bubble" id="tb">
+      <div class="thinking-header">
+        <div class="thinking-brain">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 2a3.5 3.5 0 0 0-3.44 4.15A3.5 3.5 0 0 0 4 9.5c0 .98.4 1.87 1.06 2.5A3.5 3.5 0 0 0 6 15.5a3.5 3.5 0 0 0 3 3.46V21h2v-2.04A3.5 3.5 0 0 0 14 21v-2.04A3.5 3.5 0 0 0 18 15.5a3.5 3.5 0 0 0 .94-3.5A3.5 3.5 0 0 0 20 9.5a3.5 3.5 0 0 0-2.06-3.35A3.5 3.5 0 0 0 14.5 2c-.98 0-1.87.4-2.5 1.06A3.49 3.49 0 0 0 9.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3v18M9 7.5a2 2 0 0 0 3 0M15 7.5a2 2 0 0 1-3 0M9 13a2 2 0 0 0 3 0M15 13a2 2 0 0 1-3 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="thinking-status">
+          <div class="thinking-status-title">در حال فکر کردن</div>
+          <div class="thinking-status-sub" id="sub">پیام دریافت شد...</div>
+        </div>
+        <div class="thinking-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="thinking-steps">
+        <div class="t-step done"><span class="t-step-dot"></span><span>دریافت سوال</span></div>
+        <div class="t-step active"><span class="t-step-dot"></span><span>تحلیل و بررسی</span></div>
+        <div class="t-step"><span class="t-step-dot"></span><span>نوشتن پاسخ</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const subs = ['پیام دریافت شد...','در حال فکر کردن...','آماده‌سازی پاسخ...'];
+const steps = document.querySelectorAll('.t-step');
+const subEl = document.getElementById('sub');
+let s = 1;
+setInterval(() => {
+  s = (s + 1) % 3;
+  steps.forEach((el,i) => {
+    el.classList.toggle('done',   i < s);
+    el.classList.toggle('active', i === s);
+  });
+  subEl.textContent = subs[s];
+}, 1800);
+</script>
+</body>
+</html>
