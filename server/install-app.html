@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>نصب دانش‌یار | نسخه iOS</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="دانش‌یار">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('/assets/vendor/fonts/Vazirmatn-Regular.woff2') format('woff2');
+            font-weight: normal;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f1115 0%, #1a1d24 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: env(safe-area-inset-top, 20px);
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* لوگو */
+        .logo-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 40px auto 30px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(235, 124, 42, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, #eb7c2a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        /* کارت نصب */
+        .install-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px 24px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .install-card h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .install-card h2 .emoji {
+            font-size: 24px;
+        }
+        
+        /* مراحل نصب */
+        .steps {
+            text-align: right;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            background: linear-gradient(135deg, #eb7c2a 0%, #f59e0b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        .step-icon {
+            font-size: 20px;
+            margin-left: 8px;
+        }
+        
+        /* دکمه اصلی */
+        .btn-install {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #eb7c2a 0%, #f59e0b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(235, 124, 42, 0.3);
+        }
+        
+        .btn-install:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(235, 124, 42, 0.4);
+        }
+        
+        .btn-install:active {
+            transform: translateY(0);
+        }
+        
+        /* نکات */
+        .tips {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(235, 124, 42, 0.1);
+            border: 1px solid rgba(235, 124, 42, 0.2);
+            border-radius: 16px;
+        }
+        
+        .tips h3 {
+            font-size: 14px;
+            color: #eb7c2a;
+            margin-bottom: 12px;
+        }
+        
+        .tips p {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        /* فوتر */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* تشخیص اندروید */
+        .android-only {
+            display: none;
+        }
+        
+        .ios-only {
+            display: block;
+        }
+        
+        /* نسخه اندروید */
+        .android-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #aaa;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .android-badge:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        /* انیمیشن ورود */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- لوگو -->
+        <div class="logo-wrapper animate delay-1">
+            <img src="/assets/img/icon-512.png" alt="دانش‌یار">
+        </div>
+        
+        <!-- عنوان -->
+        <h1 class="animate delay-1">دانش‌یار</h1>
+        <p class="subtitle animate delay-1">هم‌کلاسی هوشمند تو</p>
+        
+        <!-- کارت نصب -->
+        <div class="install-card animate delay-2">
+            <h2>
+                <span class="emoji">📱</span>
+                نصب روی آیفون
+            </h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">۱</div>
+                    <div class="step-content">
+                        <h3>روی دکمه زیر بزنید <span class="step-icon">👇</span></h3>
+                        <p>یا از نوار پایین Safari روی آیکون اشتراک‌گذاری بزنید</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">۲</div>
+                    <div class="step-content">
+                        <h3>«Add to Home Screen» را انتخاب کنید <span class="step-icon">📋</span></h3>
+                        <p>به پایین اسکرول کنید تا گزینه را پیدا کنید</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">۳</div>
+                    <div class="step-content">
+                        <h3>«Add» را بزنید <span class="step-icon">✅</span></h3>
+                        <p>دانش‌یار روی صفحه اصلی شما نصب می‌شود!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- دکمه ورود مستقیم -->
+        <a href="/" class="btn-install animate delay-3">
+            🚀 ورود به دانش‌یار
+        </a>
+        
+        <!-- نسخه اندروید -->
+        <a href="#" class="android-badge animate delay-4">
+            🤖 نسخه اندروید هم موجود است
+        </a>
+        
+        <!-- نکات -->
+        <div class="tips animate delay-4">
+            <h3>💡 نکته مهم</h3>
+            <p>
+                پس از نصب، دانش‌یار مثل یک اپلیکیشن واقعی کار می‌کند!<br>
+                نیازی به App Store نیست و کاملاً رایگان است.
+            </p>
+        </div>
+        
+        <!-- فوتر -->
+        <div class="footer animate delay-4">
+            <p>© ۱۴۰۴ دانش‌یار · تمام حقوق محفوظ است</p>
+        </div>
+    </div>
+    
+    <script>
+        // تشخیص دستگاه
+        const ua = navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        const isAndroid = /Android/.test(ua);
+        const isStandalone = window.navigator.standalone === true;
+        
+        // اگر قبلاً نصب شده، مستقیم ببر به صفحه اصلی
+        if (isStandalone) {
+            window.location.href = '/';
+        }
+        
+        // نمایش پیام مناسب
+        if (isAndroid) {
+            document.querySelector('.ios-only').style.display = 'none';
+            document.querySelector('.android-only').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
